@@ -1,5 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+
+import { AuthGuard } from '../guards/auth.guard';
+
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoadplanComponent } from './loadplan/loadplan.component';
@@ -9,15 +12,14 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 const routes: Routes = [
     {
-        path: 'dashboard',            
-        component: PagesComponent,
+        path: 'dashboard', component: PagesComponent,
+        canActivate: [AuthGuard],
         children: [
           
-          {path: '',                  component: DashboardComponent},
-          {path: 'loadplan',          component: LoadplanComponent},
-          {path: 'grafica1',          component: Grafica1Component},
-          {path: 'account-settings',  component: AccountSettingsComponent},
-       
+          {path: '',                  component: DashboardComponent, data:{ titulo: 'Dashboard' }},
+          {path: 'loadplan',          component: LoadplanComponent, data:{ titulo: 'Load plan' }},
+          {path: 'grafica1',          component: Grafica1Component, data:{ titulo: 'Graficas' }},
+          {path: 'account-settings',  component: AccountSettingsComponent, data:{ titulo: 'Ajueste del theme' }},
     
         ] 
       },
